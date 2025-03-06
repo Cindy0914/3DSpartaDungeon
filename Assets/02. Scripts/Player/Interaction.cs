@@ -16,6 +16,8 @@ public class Interaction : MonoBehaviour
     private Transform meshTr;
     private Collider[] hitColliders;
     private float lastCheckTime;
+    
+    public IInteractable CurrentInteractable => currentInteractable;
 
     public void Init(Transform meshTransform)
     {
@@ -53,8 +55,13 @@ public class Interaction : MonoBehaviour
     public void OnInteractInput(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Started || currentInteractable == null) return;
+
+        // 오브젝트 파괴 및 인벤토리에 추가
+        Destroy(currentInteractObj);
+        var itemData = currentInteractable.GetItemData();
+        UIManager.Instance.OnItemAdded?.Invoke(itemData);
         
-        currentInteractable.OnInteract();
+        // 상호작용 종료
         currentInteractObj = null;
         currentInteractable = null;
         UIManager.Instance.InactiveInteraction();

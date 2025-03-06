@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    public void OnInteract();
+    public ItemData GetItemData();
     public string GetItemName();
     public string GetItemDesc();
 }
@@ -11,9 +11,9 @@ public class ItemObject : MonoBehaviour, IInteractable
 {
     [SerializeField] private ItemData itemData;
 
-    public void OnInteract()
+    public ItemData GetItemData()
     {
-        // 인벤토리에 추가
+        return itemData;
     }
     
     public string GetItemName()

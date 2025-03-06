@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba11e81c35e288642b97b27f696602a6, type: 3}
   m_Name: Tomato
   m_EditorClassIdentifier: 
+  ItemID: 1004
   ItemName: "\uD1A0\uB9C8\uD1A0"
   ItemDesc: "\uD1A0\uB9C8\uD1A0\uC774\uB2E4."
   ItemIcon: {fileID: 170950340, guid: 860e1a37e80881049ae7925a81c7f3bb, type: 3}

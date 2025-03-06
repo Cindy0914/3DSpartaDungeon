@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba11e81c35e288642b97b27f696602a6, type: 3}
   m_Name: Pumpkin
   m_EditorClassIdentifier: 
+  ItemID: 1002
   ItemName: "\uD638\uBC15"
   ItemDesc: "\uD30C\uC778\uC560\uD50C\uC774 \uC544\uB2C8\uB77C \uD638\uBC15\uC774\uB2E4."
   ItemIcon: {fileID: 2132137732, guid: 860e1a37e80881049ae7925a81c7f3bb, type: 3}

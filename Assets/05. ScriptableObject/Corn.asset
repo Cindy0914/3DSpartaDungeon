@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba11e81c35e288642b97b27f696602a6, type: 3}
   m_Name: Corn
   m_EditorClassIdentifier: 
+  ItemID: 1001
   ItemName: "\uC625\uC218\uC218"
   ItemDesc: "\uBC14\uB098\uB098\uAC00 \uC544\uB2C8\uB77C \uC625\uC218\uC218\uB2E4."
   ItemIcon: {fileID: -379342493, guid: 860e1a37e80881049ae7925a81c7f3bb, type: 3}

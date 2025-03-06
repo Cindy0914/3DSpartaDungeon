@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpPower;
     [SerializeField] private LayerMask groundLayer;
-    private readonly Ray[] groundRays = new Ray[4];
     private Vector3 moveInput;
 
     [Header("Rotation")]
@@ -30,18 +29,21 @@ public class PlayerController : MonoBehaviour
 
     public void Init()
     {
-        RaycastGround();
-        // Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
         mainCam = Camera.main;
         canMove = true;
     }
 
     private void FixedUpdate()
     {
+        Debug.Log($"IsGround: {IsGround()}");
+        
         if (!canMove) return;
 
         if (moveInput != Vector3.zero)
             Move();
+        else
+            rigid.velocity = new Vector3(0f, rigid.velocity.y, 0f);
     }
 
     private void LateUpdate()
@@ -101,27 +103,44 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && IsGround())
         {
-            rigid.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
-            stateMachine.StateChange(State.Jump);
+            Jump(jumpPower);
         }
     }
-
-    private void RaycastGround()
+    
+    public void Jump(float power)
     {
-        groundRays[0] = new Ray(transform.position + (transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down);
-        groundRays[1] = new Ray(transform.position + (-transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down);
-        groundRays[2] = new Ray(transform.position + (transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down);
-        groundRays[3] = new Ray(transform.position + (-transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down);
+        rigid.AddForce(Vector2.up * power, ForceMode.Impulse);
+        stateMachine.StateChange(State.Jump);
     }
 
     private bool IsGround()
     {
-        for (int i = 0; i < groundRays.Length; i++)
+        Ray[] rays = 
         {
-            if (Physics.Raycast(groundRays[i], 0.1f, groundLayer))
-                return true;
+            new(transform.position + (transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
+            new(transform.position + (-transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
+            new(transform.position + (transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down),
+            new(transform.position + (-transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down)
+        };
+        
+        for (int i = 0; i < rays.Length; i++)
+        {
+            if (!Physics.Raycast(rays[i], 0.1f, groundLayer))
+            {
+                return false;
+            }
         }
 
-        return false;
+        return true;
+    }
+    
+    public void OnInventory(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            UIManager.Instance.OnInputInventory();
+            Cursor.lockState = UIManager.Instance.IsInventoryActive ? CursorLockMode.None : CursorLockMode.Locked;
+            canMove = !UIManager.Instance.IsInventoryActive;
+        }
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemData : ScriptableObject
 {
     [Header("Item Info")]
+    public int ItemID;
     public string ItemName;
     public string ItemDesc;
     public Sprite ItemIcon;
