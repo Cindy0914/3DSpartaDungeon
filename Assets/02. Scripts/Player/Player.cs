@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerCondition playerCondition;
+    [SerializeField] private Interaction interaction;
     
     public PlayerController PlayerController => playerController;
     public PlayerCondition PlayerCondition => playerCondition;
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour
     {
         playerController.Init();
         playerCondition.Init();
+        interaction.Init(playerController.MeshTr);
     }
 
     public void OnGUI()

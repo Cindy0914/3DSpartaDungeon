@@ -1869,8 +1869,9 @@ GameObject:
   - component: {fileID: 6809649997223444082}
   - component: {fileID: 8564606656610924326}
   - component: {fileID: 6557812471776116494}
-  - component: {fileID: 857112659058703972}
   - component: {fileID: 5479706619691649444}
+  - component: {fileID: 857112659058703972}
+  - component: {fileID: 7486171013124071425}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -2045,7 +2046,19 @@ MonoBehaviour:
     m_ActionId: 5f7af9c2-8ea5-4517-8f4d-dd8286d657d5
     m_ActionName: Player/Attack[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7486171013124071425}
+        m_TargetAssemblyTypeName: Interaction, Assembly-CSharp
+        m_MethodName: OnInteractInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: b3a90e86-9a45-41e8-9e2c-538e1649b8f5
     m_ActionName: Player/Interaction[/Keyboard/e]
   - m_PersistentCalls:
@@ -2071,6 +2084,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 6557812471776116494}
   playerCondition: {fileID: 5479706619691649444}
+  interaction: {fileID: 7486171013124071425}
 --- !u!114 &6557812471776116494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2090,10 +2104,24 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
-  mesh: {fileID: 5295812829195647131}
+  meshTr: {fileID: 5295812829195647131}
   camContainer: {fileID: 6611543046321949169}
   rotSmoothTime: 0.2
   camRotSpeed: 0.05
+--- !u!114 &5479706619691649444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6653836261134622389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caf16781529f25408f977e8ca533c1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  maxStamina: 100
 --- !u!114 &857112659058703972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2109,7 +2137,7 @@ MonoBehaviour:
   state: 0
   actor: {fileID: 8564606656610924326}
   anim: {fileID: 6297279662322695496}
---- !u!114 &5479706619691649444
+--- !u!114 &7486171013124071425
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2118,11 +2146,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6653836261134622389}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4caf16781529f25408f977e8ca533c1a, type: 3}
+  m_Script: {fileID: 11500000, guid: cdc39a5697a32124798df535a5b56b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  maxStamina: 100
+  checkRate: 0.05
+  maxCheckRadius: 0.35
+  checkOffset: {x: 0, y: 0.3, z: 0.5}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &6751554684998084898
 GameObject:
   m_ObjectHideFlags: 0

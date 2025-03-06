@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba11e81c35e288642b97b27f696602a6, type: 3}
+  m_Name: WaterMelon
+  m_EditorClassIdentifier: 
+  ItemName: "\uC218\uBC15"
+  ItemDesc: "\uC218\uBC15\uC774\uB2E4."
+  ItemIcon: {fileID: -2118269793, guid: 860e1a37e80881049ae7925a81c7f3bb, type: 3}
+  ItemPrefab: {fileID: 4965136948555048355, guid: 62b05440478a4f847957a3a365b30bed, type: 3}
+  Consumables:
+  - Type: 0
+    Value: 10
+  - Type: 1
+    Value: 10
+  IsStackable: 1
+  MaxStack: 9

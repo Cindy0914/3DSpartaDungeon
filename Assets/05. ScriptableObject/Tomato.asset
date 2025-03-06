@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba11e81c35e288642b97b27f696602a6, type: 3}
+  m_Name: Tomato
+  m_EditorClassIdentifier: 
+  ItemName: "\uD1A0\uB9C8\uD1A0"
+  ItemDesc: "\uD1A0\uB9C8\uD1A0\uC774\uB2E4."
+  ItemIcon: {fileID: 170950340, guid: 860e1a37e80881049ae7925a81c7f3bb, type: 3}
+  ItemPrefab: {fileID: 2637064437739884408, guid: c71e698164d6bd441849e822d37db66f, type: 3}
+  Consumables:
+  - Type: 0
+    Value: 10
+  - Type: 1
+    Value: 10
+  IsStackable: 1
+  MaxStack: 9

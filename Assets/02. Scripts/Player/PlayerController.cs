@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private Rigidbody rigid;
-
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpPower;
     [SerializeField] private LayerMask groundLayer;
@@ -17,8 +16,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveInput;
 
     [Header("Rotation")]
-    [SerializeField] private Transform mesh;
-
+    [SerializeField] private Transform meshTr;
     [SerializeField] private Transform camContainer;
     [SerializeField] private float rotSmoothTime;
     [SerializeField] private float camRotSpeed;
@@ -28,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     private bool canMove = false;
     public Transform CamContainer => camContainer;
+    public Transform MeshTr => meshTr;
 
     public void Init()
     {
@@ -55,17 +54,17 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            Debug.Log("InputActionPhase.Started");
+            //Debug.Log("InputActionPhase.Started");
             stateMachine.StateChange(State.Walk);
         }
         else if (context.phase == InputActionPhase.Performed)
         {
             moveInput = context.ReadValue<Vector3>();
-            Debug.Log($"Performed: {moveInput}");
+            //Debug.Log($"Performed: {moveInput}");
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
-            Debug.Log("InputActionPhase.Canceled");
+            //Debug.Log("InputActionPhase.Canceled");
             moveInput = Vector3.zero;
             stateMachine.StateChange(State.Idle);
         }
@@ -78,9 +77,9 @@ public class PlayerController : MonoBehaviour
         // + mainCamTr.eulerAngles.y 카메라의 y축 각도를 더해 카메라 기준으로 회전하도록 조정
         float targetAngle = Mathf.Atan2(moveInput.x, moveInput.z) * Mathf.Rad2Deg + mainCam.transform.eulerAngles.y;
         // 자연스러운 캐릭터의 회전을 위한 것으로 SmoothDampAngle을 통해 절차적 회전 각도를 구함 
-        float angle = Mathf.SmoothDampAngle(mesh.eulerAngles.y, targetAngle, ref rotSmoothVelocity, rotSmoothTime);
+        float angle = Mathf.SmoothDampAngle(meshTr.eulerAngles.y, targetAngle, ref rotSmoothVelocity, rotSmoothTime);
 
-        mesh.rotation = Quaternion.Euler(0f, angle, 0f);
+        meshTr.rotation = Quaternion.Euler(0f, angle, 0f);
         Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
         float currentY = rigid.velocity.y;

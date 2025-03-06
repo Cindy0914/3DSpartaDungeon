@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba11e81c35e288642b97b27f696602a6, type: 3}
+  m_Name: Corn
+  m_EditorClassIdentifier: 
+  ItemName: "\uC625\uC218\uC218"
+  ItemDesc: "\uBC14\uB098\uB098\uAC00 \uC544\uB2C8\uB77C \uC625\uC218\uC218\uB2E4."
+  ItemIcon: {fileID: -379342493, guid: 860e1a37e80881049ae7925a81c7f3bb, type: 3}
+  ItemPrefab: {fileID: 338104620736019752, guid: 83c6db6b1bf0e4e43921b8298ed6e1e8, type: 3}
+  Consumables:
+  - Type: 0
+    Value: 10
+  IsStackable: 1
+  MaxStack: 9
