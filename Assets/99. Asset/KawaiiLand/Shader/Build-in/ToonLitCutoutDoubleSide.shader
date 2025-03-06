@@ -187,7 +187,6 @@ Shader "Kawaii/ToonLitCutoutDoubleSide"
 		}
 	}
 	Fallback "Diffuse"
-	CustomEditor "ASEMaterialInspector"
 }
 /*ASEBEGIN
 Version=18935

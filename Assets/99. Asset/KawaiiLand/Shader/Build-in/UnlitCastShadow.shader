@@ -72,7 +72,6 @@ Shader "Kawaii/UnlitCastShadow"
 		ENDCG
 	}
 	Fallback "Diffuse"
-	CustomEditor "ASEMaterialInspector"
 }
 /*ASEBEGIN
 Version=18935

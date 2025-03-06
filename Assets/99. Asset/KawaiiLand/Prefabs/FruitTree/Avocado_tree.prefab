@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 531431255671886051}
   - component: {fileID: 3517274458539941702}
   - component: {fileID: 1669473398721555340}
-  - component: {fileID: 683284790666556763}
+  - component: {fileID: 685539138462222474}
   m_Layer: 0
   m_Name: Avocado_tree
   m_TagString: Untagged
@@ -26,16 +26,17 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 877029048179264089}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1597393244832054586}
   - {fileID: 1606878210720989531}
   - {fileID: 8003213243352732557}
   - {fileID: 9024799495184364612}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3517274458539941702
 MeshFilter:
@@ -56,6 +57,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -87,25 +89,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &683284790666556763
-MeshCollider:
+--- !u!65 &685539138462222474
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 877029048179264089}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -7561070456997400500, guid: 0ae1ccf9040748c45a3de2a0b75bd2a5, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.52, y: 1.639927, z: 0.56}
+  m_Center: {x: 0, y: 0.78520197, z: 0.03}
 --- !u!1001 &1561809555764298733
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 531431255671886051}
     m_Modifications:
     - target: {fileID: 279344931459515062, guid: dd324597d148b8447a3fc9ba60a2c31a, type: 3}
@@ -169,6 +179,9 @@ PrefabInstance:
       value: Avocado
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd324597d148b8447a3fc9ba60a2c31a, type: 3}
 --- !u!4 &1606878210720989531 stripped
 Transform:
@@ -180,6 +193,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 531431255671886051}
     m_Modifications:
     - target: {fileID: 279344931459515062, guid: dd324597d148b8447a3fc9ba60a2c31a, type: 3}
@@ -243,6 +257,9 @@ PrefabInstance:
       value: Avocado
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd324597d148b8447a3fc9ba60a2c31a, type: 3}
 --- !u!4 &1597393244832054586 stripped
 Transform:
@@ -254,6 +271,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 531431255671886051}
     m_Modifications:
     - target: {fileID: 279344931459515062, guid: dd324597d148b8447a3fc9ba60a2c31a, type: 3}
@@ -317,6 +335,9 @@ PrefabInstance:
       value: Avocado
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd324597d148b8447a3fc9ba60a2c31a, type: 3}
 --- !u!4 &8003213243352732557 stripped
 Transform:
@@ -328,6 +349,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 531431255671886051}
     m_Modifications:
     - target: {fileID: 279344931459515062, guid: dd324597d148b8447a3fc9ba60a2c31a, type: 3}
@@ -391,6 +413,9 @@ PrefabInstance:
       value: Avocado
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd324597d148b8447a3fc9ba60a2c31a, type: 3}
 --- !u!4 &9024799495184364612 stripped
 Transform:
