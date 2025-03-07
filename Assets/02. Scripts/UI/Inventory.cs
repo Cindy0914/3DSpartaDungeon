@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,17 +8,29 @@ public class Inventory : MonoBehaviour
 {
     [Header("Slot")]
     [SerializeField] private Transform slotPanel;
-    
+
     [Header("Item Info")]
     [SerializeField] private TextMeshProUGUI nameText;
+
     [SerializeField] private TextMeshProUGUI descText;
+
+    [Header("Consumable Info")]
     [SerializeField] private GameObject healthImage;
+
     [SerializeField] private GameObject staminaImage;
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI staminaText;
-    
+
+    [Header("Buff Info")]
+    [SerializeField] private GameObject speedImage;
+
+    [SerializeField] private GameObject jumpImage;
+    [SerializeField] private TextMeshProUGUI speedText;
+    [SerializeField] private TextMeshProUGUI jumpText;
+
     [Header("Button")]
     [SerializeField] private Button useButton;
+
     [SerializeField] private Button dropButton;
 
     private ItemSlot[] slots;
@@ -35,7 +48,7 @@ public class Inventory : MonoBehaviour
             slots[i] = slotPanel.GetChild(i).GetComponent<ItemSlot>();
             slots[i].Init();
         }
-        
+
         ClearItemInfo();
         useButton.onClick.AddListener(UseItem);
         dropButton.onClick.AddListener(DropItem);
@@ -45,21 +58,27 @@ public class Inventory : MonoBehaviour
     {
         if (existSlotDict.ContainsKey(itemData.ItemID))
         {
-            existSlotDict[itemData.ItemID].AddStack();
+            if (!existSlotDict[itemData.ItemID].TryAddStack())
+                FindNewSlot();
         }
         else
         {
+            FindNewSlot();
+        }
+        return;
+        
+        void FindNewSlot()
+        {
             for (int i = 0; i < slots.Length; i++)
             {
-                if (slots[i].IsEmpty())
-                {
-                    slots[i].SetItem(itemData);
-                    existSlotDict.Add(itemData.ItemID, slots[i]);
-                    slots[i].SelectButton.onClick.AddListener(() => OnItemSlotClick(itemData));
-                    return;
-                }
+                if (!slots[i].IsEmpty()) continue;
+                
+                slots[i].SetItem(itemData);
+                existSlotDict.Add(itemData.ItemID, slots[i]);
+                slots[i].SelectButton.onClick.AddListener(() => OnItemSlotClick(itemData));
+                return;
             }
-            
+
             var player = MainSceneBase.Instance.Player;
             var pos = player.DropPoint.position;
             var interactData = player.Interaction.CurrentInteractable.GetItemData();
@@ -77,16 +96,38 @@ public class Inventory : MonoBehaviour
 
         for (int i = 0; i < data.Consumables.Length; i++)
         {
-            switch (data.Consumables[i].Type)
+            var consumable = data.Consumables[i];
+            switch (consumable.Type)
             {
                 case ConsumableType.Health:
                     healthImage.SetActive(true);
-                    healthText.text = $"체력 {data.Consumables[i].Value}";
+                    healthText.text = $"체력 {consumable.Value}";
                     break;
                 case ConsumableType.Stamina:
                     staminaImage.SetActive(true);
-                    staminaText.text = $"기력 {data.Consumables[i].Value}";
+                    staminaText.text = $"기력 {consumable.Value}";
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(consumable.Type), consumable.Type, null);
+            }
+        }
+
+        for (int i = 0; i < data.Buffs.Length; i++)
+        {
+            var buff = data.Buffs[i];
+            switch (buff.Type)
+            {
+                case BuffType.SpeedUp:
+                    speedImage.SetActive(true);
+                    speedText.text = $"속도 {buff.Value}";
+                    break;
+                case BuffType.JumpUp:
+                    jumpImage.SetActive(true);
+                    jumpText.text = $"점프력 {buff.Value / 10}";
+                    break;
+                case BuffType.None:
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(buff.Type), buff.Type, null);
             }
         }
     }
@@ -97,40 +138,52 @@ public class Inventory : MonoBehaviour
         descText.text = "";
         healthImage.SetActive(false);
         staminaImage.SetActive(false);
+        speedImage.SetActive(false);
+        jumpImage.SetActive(false);
         useButton.gameObject.SetActive(false);
         dropButton.gameObject.SetActive(false);
     }
-    
-    public void UseItem()
+
+    private void UseItem()
     {
         if (!selectedItem) return;
 
         var playerCondition = MainSceneBase.Instance.Player.PlayerCondition;
         for (int i = 0; i < selectedItem.Consumables.Length; i++)
         {
+            var consumable = selectedItem.Consumables[i];
             switch (selectedItem.Consumables[i].Type)
             {
                 case ConsumableType.Health:
-                    playerCondition.AddHealth(selectedItem.Consumables[i].Value);
+                    playerCondition.AddHealth(consumable.Value);
                     break;
                 case ConsumableType.Stamina:
-                    playerCondition.AddStamina(selectedItem.Consumables[i].Value);
+                    playerCondition.AddStamina(consumable.Value);
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(consumable.Type), consumable.Type, null);
             }
         }
 
-        if (existSlotDict[selectedItem.ItemID].RemoveConsumeItem() != 0) return;
+        for (int i = 0; i < selectedItem.Buffs.Length; i++)
+        {
+            var buff = selectedItem.Buffs[i];
+            var buffController = MainSceneBase.Instance.Player.BuffController;
+            buffController.ExecuteBuff(buff);
+        }
+
+        if (existSlotDict[selectedItem.ItemID].TakeOneItem() != 0) return;
         RemoveItem();
     }
 
-    public void DropItem()
+    private void DropItem()
     {
         if (!selectedItem) return;
-        
+
         var pos = MainSceneBase.Instance.Player.DropPoint.position;
         Instantiate(selectedItem.ItemPrefab, pos, Quaternion.identity);
-        
-        if (existSlotDict[selectedItem.ItemID].RemoveConsumeItem() != 0) return;
+
+        if (existSlotDict[selectedItem.ItemID].TakeOneItem() != 0) return;
         RemoveItem();
     }
 
@@ -140,7 +193,7 @@ public class Inventory : MonoBehaviour
         selectedItem = null;
         ClearItemInfo();
     }
-    
+
     public void InactiveInventory()
     {
         gameObject.SetActive(false);

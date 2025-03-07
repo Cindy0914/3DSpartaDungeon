@@ -1,15 +1,19 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerCondition playerCondition;
+    [SerializeField] private BuffController buffController;
     [SerializeField] private Interaction interaction;
     [SerializeField] private Transform dropPoint;
     
     public PlayerController PlayerController => playerController;
     public PlayerCondition PlayerCondition => playerCondition;
+    public BuffController BuffController => buffController;
     public Interaction Interaction => interaction;
     public Transform DropPoint => dropPoint;
     
@@ -17,6 +21,7 @@ public class Player : MonoBehaviour
     {
         playerController.Init();
         playerCondition.Init();
+        buffController.Init();
         interaction.Init(playerController.MeshTr);
     }
 }

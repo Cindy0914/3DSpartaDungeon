@@ -31,13 +31,17 @@ public class ItemSlot : MonoBehaviour
         stackText.text = stack > 1 ? stack.ToString() : "";
     }
 
-    public void AddStack(int stackValue = 1)
+    public bool TryAddStack(int stackValue = 1)
     {
+        if (!itemData.IsStackable) return false;
+        if (itemData.MaxStack < stack + stackValue) return false;
+            
         stack += stackValue;
         stackText.text = stack.ToString();
+        return true;
     }
     
-    public int RemoveConsumeItem()
+    public int TakeOneItem()
     {
         stack--;
         if (stack == 0)

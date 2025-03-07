@@ -17,8 +17,10 @@ MonoBehaviour:
   ItemDesc: "\uD30C\uC778\uC560\uD50C\uC774 \uC544\uB2C8\uB77C \uD638\uBC15\uC774\uB2E4."
   ItemIcon: {fileID: 2132137732, guid: 860e1a37e80881049ae7925a81c7f3bb, type: 3}
   ItemPrefab: {fileID: 203091398940022390, guid: 227d848f557abb245a15f8fbe98fdf32, type: 3}
-  Consumables:
-  - Type: 1
-    Value: 10
+  Consumables: []
+  Buffs:
+  - Type: 2
+    Value: 20
+    Duration: 5
   IsStackable: 1
   MaxStack: 9

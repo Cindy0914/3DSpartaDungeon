@@ -13,6 +13,7 @@ public class ItemData : ScriptableObject
     
     [Header("Item Type")]
     public Consumable[] Consumables;
+    public BuffData[] Buffs;
     
     [Header("Stacking")]
     public bool IsStackable;
@@ -30,4 +31,19 @@ public enum ConsumableType
 {
     Health,
     Stamina,
+}
+
+[Serializable]
+public class BuffData
+{
+    public BuffType Type;
+    public float Value;
+    public float Duration;
+}
+
+public enum BuffType
+{
+    None,
+    SpeedUp,
+    JumpUp,
 }

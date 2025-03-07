@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private Rigidbody rigid;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float addRunSpeed;
     [SerializeField] private float jumpPower;
     [SerializeField] private LayerMask groundLayer;
     private Vector3 moveInput;
@@ -19,11 +20,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform camContainer;
     [SerializeField] private float rotSmoothTime;
     [SerializeField] private float camRotSpeed;
+    
     private Camera mainCam;
     private Vector2 lookInput;
     private float rotSmoothVelocity;
-
     private bool canMove = false;
+    private bool isRunning = false;
+
     public Transform CamContainer => camContainer;
     public Transform MeshTr => meshTr;
 
@@ -32,12 +35,13 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         mainCam = Camera.main;
         canMove = true;
+        
+        var playerCondition = MainSceneBase.Instance.Player.PlayerCondition;
+        playerCondition.OnStaminaEmpty += OnCancelRun;
     }
 
     private void FixedUpdate()
     {
-        Debug.Log($"IsGround: {IsGround()}");
-        
         if (!canMove) return;
 
         if (moveInput != Vector3.zero)
@@ -89,6 +93,11 @@ public class PlayerController : MonoBehaviour
         rigid.velocity = new Vector3(rigid.velocity.x, currentY, rigid.velocity.z);
     }
 
+    public void SetMoveSpeed(float value)
+    {
+        moveSpeed += value;
+    }
+
     public void OnLook(InputAction.CallbackContext context)
     {
         lookInput = context.ReadValue<Vector2>();
@@ -111,6 +120,34 @@ public class PlayerController : MonoBehaviour
     {
         rigid.AddForce(Vector2.up * power, ForceMode.Impulse);
         stateMachine.StateChange(State.Jump);
+    }
+
+    public void SetJumpPower(float value)
+    {
+        jumpPower += value;
+    }
+    
+    public void OnRun(InputAction.CallbackContext context)
+    {
+        var playerCondition = MainSceneBase.Instance.Player.PlayerCondition;
+        if (context.phase == InputActionPhase.Started)
+        {
+            isRunning = true;
+            playerCondition.SetRunning(true);
+            SetMoveSpeed(addRunSpeed);
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            if (!isRunning) return;
+            playerCondition.SetRunning(false);
+            SetMoveSpeed(-addRunSpeed);
+        }
+    }
+    
+    public void OnCancelRun()
+    {
+        isRunning = false;
+        SetMoveSpeed(-addRunSpeed);
     }
 
     private bool IsGround()
@@ -140,6 +177,7 @@ public class PlayerController : MonoBehaviour
         {
             UIManager.Instance.OnInputInventory();
             Cursor.lockState = UIManager.Instance.IsInventoryActive ? CursorLockMode.None : CursorLockMode.Locked;
+            Time.timeScale = UIManager.Instance.IsInventoryActive ? 0f : 1f;
             canMove = !UIManager.Instance.IsInventoryActive;
         }
     }

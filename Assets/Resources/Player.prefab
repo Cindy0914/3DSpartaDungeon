@@ -1776,6 +1776,7 @@ GameObject:
   - component: {fileID: 8564606656610924326}
   - component: {fileID: 6557812471776116494}
   - component: {fileID: 5479706619691649444}
+  - component: {fileID: 1154338940464933469}
   - component: {fileID: 857112659058703972}
   - component: {fileID: 7486171013124071425}
   m_Layer: 6
@@ -1982,6 +1983,26 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 53b9df24-d4e8-496d-8160-a26be75cc9c4
     m_ActionName: Player/Inventory[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6557812471776116494}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnRun
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 030ee736-a325-41e1-96af-1116e58c586d
+    m_ActionName: Player/Run[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c2a40f1f-1ca0-4af4-ba6d-de56c4ae47d5
+    m_ActionName: Player/ChangeView[/Keyboard/c]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2001,6 +2022,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 6557812471776116494}
   playerCondition: {fileID: 5479706619691649444}
+  buffController: {fileID: 1154338940464933469}
   interaction: {fileID: 7486171013124071425}
   dropPoint: {fileID: 2984732983111374411}
 --- !u!114 &6557812471776116494
@@ -2018,6 +2040,7 @@ MonoBehaviour:
   stateMachine: {fileID: 857112659058703972}
   rigid: {fileID: 8471341198408951989}
   moveSpeed: 3
+  addRunSpeed: 1
   jumpPower: 90
   groundLayer:
     serializedVersion: 2
@@ -2040,6 +2063,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   maxStamina: 100
+  passiveStaminaRecovery: 5
+  runningStaminaCost: 20
+--- !u!114 &1154338940464933469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6653836261134622389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed3eca30657e19745879480d084ef8a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &857112659058703972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2242,7 +2279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6611543046321949169}
   m_Layer: 6
-  m_Name: CamContainer
+  m_Name: CameraContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2256,8 +2293,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7268664087897793732}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 0, y: 1.95, z: -2.8}
+  m_LocalRotation: {x: 0.13052616, y: -0, z: -0, w: 0.9914449}
+  m_LocalPosition: {x: 0, y: 1.9500003, z: -2.8000002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

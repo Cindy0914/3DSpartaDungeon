@@ -9,10 +9,12 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private ConditionPanel staminaPanel;
     [SerializeField] private InteractionPanel interactionPanel;
     [SerializeField] private Inventory inventory;
+    [SerializeField] private BuffPanel buffPanel;
     
     public Action<float> OnPlayerHealthChanged;
     public Action<float> OnPlayerStaminaChanged;
     public Action<ItemData> OnItemAdded;
+    public Action<BuffType, float> OnBuffProgressChanged;
     
     public bool IsInventoryActive => inventory.gameObject.activeInHierarchy;
 
@@ -20,12 +22,14 @@ public class UIManager : Singleton<UIManager>
     {
         healthPanel.Init(player.PlayerCondition.MaxHealth);
         staminaPanel.Init(player.PlayerCondition.MaxStamina);
-        inventory.Init();
         interactionPanel.gameObject.SetActive(false);
+        inventory.Init();
+        buffPanel.Init();
         
         OnPlayerHealthChanged += healthPanel.UpdateValue;
         OnPlayerStaminaChanged += staminaPanel.UpdateValue;
         OnItemAdded += inventory.AddItem;
+        OnBuffProgressChanged += buffPanel.UpdateBuffProgress;
     }
     
     public void SetInteraction(string itemName, string desc)
