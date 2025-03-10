@@ -17,8 +17,6 @@ public class StateMachine<T> : MonoBehaviour where T : MonoBehaviour
 
     public void StateChange(State changeState)
     {
-        Debug.Log("StateChange: " + changeState);
-        
         switch (state)
         {
             case State.None:

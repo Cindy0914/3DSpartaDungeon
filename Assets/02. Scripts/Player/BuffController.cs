@@ -6,28 +6,29 @@ using UnityEngine;
 public class BuffController : MonoBehaviour
 {
     private Player player;
-    private Dictionary<BuffType, Coroutine> buffCoroutines;
-    private Dictionary<BuffType, Action> finishActions;
+    private Dictionary<int, Coroutine> buffCoroutines;
+    private Dictionary<int, Action> finishActions;
 
     public void Init()
     {
         player = GetComponent<Player>();
-        buffCoroutines = new Dictionary<BuffType, Coroutine>();
-        finishActions = new Dictionary<BuffType, Action>();
+        buffCoroutines = new Dictionary<int, Coroutine>();
+        finishActions = new Dictionary<int, Action>();
     }
 
     public void ExecuteBuff(BuffData data)
     {
-        if (buffCoroutines.TryGetValue(data.Type, out var coroutine))
+        var type = (int)data.Type;
+        if (buffCoroutines.TryGetValue(type, out var coroutine))
         {
             StopCoroutine(coroutine);
-            finishActions[data.Type]?.Invoke();
-            buffCoroutines.Remove(data.Type);
-            finishActions.Remove(data.Type);
+            finishActions[type]?.Invoke();
+            buffCoroutines.Remove(type);
+            finishActions.Remove(type);
         }
 
-        buffCoroutines.Add(data.Type, StartCoroutine(ApplyBuff(data)));
-        finishActions.Add(data.Type, () => EndBuff(data));
+        buffCoroutines.Add(type, StartCoroutine(ApplyBuff(data)));
+        finishActions.Add(type, () => EndBuff(data));
     }
     
     private IEnumerator ApplyBuff(BuffData data)
@@ -42,9 +43,10 @@ public class BuffController : MonoBehaviour
             yield return null;
         }
         
-        finishActions[data.Type]?.Invoke();
-        finishActions.Remove(data.Type);
-        buffCoroutines.Remove(data.Type);
+        var type = (int)data.Type;
+        finishActions[type]?.Invoke();
+        finishActions.Remove(type);
+        buffCoroutines.Remove(type);
     }
 
     private void BuffEffect(BuffData data)

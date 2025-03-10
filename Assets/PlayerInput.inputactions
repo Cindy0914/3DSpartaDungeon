@@ -42,15 +42,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack",
-                    "type": "Button",
-                    "id": "5f7af9c2-8ea5-4517-8f4d-dd8286d657d5",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Interaction",
                     "type": "Button",
                     "id": "b3a90e86-9a45-41e8-9e2c-538e1649b8f5",
@@ -63,15 +54,6 @@
                     "name": "Inventory",
                     "type": "Button",
                     "id": "53b9df24-d4e8-496d-8160-a26be75cc9c4",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ChangeView",
-                    "type": "Button",
-                    "id": "c2a40f1f-1ca0-4af4-ba6d-de56c4ae47d5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -147,17 +129,6 @@
                 },
                 {
                     "name": "",
-                    "id": "497ec0fc-dccd-4b9b-a33d-a094d57126ae",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "0d7a53d1-5ba4-408d-9c67-0732c6f5eed4",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
@@ -197,17 +168,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Run",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "69f0447f-c30c-4420-b999-8b261d18113d",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeView",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

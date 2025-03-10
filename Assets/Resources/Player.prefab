@@ -1948,10 +1948,6 @@ MonoBehaviour:
     m_ActionId: e93608cf-737b-45dd-b6ac-2ba4a0ab74a7
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5f7af9c2-8ea5-4517-8f4d-dd8286d657d5
-    m_ActionName: Player/Attack[/Mouse/leftButton]
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7486171013124071425}
         m_TargetAssemblyTypeName: Interaction, Assembly-CSharp
@@ -1999,10 +1995,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 030ee736-a325-41e1-96af-1116e58c586d
     m_ActionName: Player/Run[/Keyboard/shift]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c2a40f1f-1ca0-4af4-ba6d-de56c4ae47d5
-    m_ActionName: Player/ChangeView[/Keyboard/c]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2092,6 +2084,7 @@ MonoBehaviour:
   state: 0
   actor: {fileID: 8564606656610924326}
   anim: {fileID: 6297279662322695496}
+  playerController: {fileID: 6557812471776116494}
 --- !u!114 &7486171013124071425
 MonoBehaviour:
   m_ObjectHideFlags: 0

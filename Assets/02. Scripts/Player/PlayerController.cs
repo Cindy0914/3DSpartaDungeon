@@ -14,21 +14,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpPower;
     [SerializeField] private LayerMask groundLayer;
     private Vector3 moveInput;
+    private Vector3 currentVelocity;
+    private Vector3 prevVelocity;
 
     [Header("Rotation")]
     [SerializeField] private Transform meshTr;
     [SerializeField] private Transform camContainer;
     [SerializeField] private float rotSmoothTime;
     [SerializeField] private float camRotSpeed;
-    
     private Camera mainCam;
     private Vector2 lookInput;
     private float rotSmoothVelocity;
+    
     private bool canMove = false;
     private bool isRunning = false;
 
     public Transform CamContainer => camContainer;
     public Transform MeshTr => meshTr;
+    public Vector3 MoveInput => moveInput;
 
     public void Init()
     {
@@ -43,11 +46,11 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if (!canMove) return;
-
+        
         if (moveInput != Vector3.zero)
             Move();
         else
-            rigid.velocity = new Vector3(0f, rigid.velocity.y, 0f);
+            rigid.velocity = new Vector3(0, rigid.velocity.y, 0);
     }
 
     private void LateUpdate()
@@ -58,21 +61,13 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started)
-        {
-            //Debug.Log("InputActionPhase.Started");
-            stateMachine.StateChange(State.Walk);
-        }
-        else if (context.phase == InputActionPhase.Performed)
+        if (context.phase == InputActionPhase.Performed)
         {
             moveInput = context.ReadValue<Vector3>();
-            //Debug.Log($"Performed: {moveInput}");
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
-            //Debug.Log("InputActionPhase.Canceled");
             moveInput = Vector3.zero;
-            stateMachine.StateChange(State.Idle);
         }
     }
 
@@ -144,13 +139,13 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    public void OnCancelRun()
+    private void OnCancelRun()
     {
         isRunning = false;
         SetMoveSpeed(-addRunSpeed);
     }
 
-    private bool IsGround()
+    public bool IsGround()
     {
         Ray[] rays = 
         {
@@ -162,7 +157,7 @@ public class PlayerController : MonoBehaviour
         
         for (int i = 0; i < rays.Length; i++)
         {
-            if (!Physics.Raycast(rays[i], 0.1f, groundLayer))
+            if (!Physics.Raycast(rays[i], 0.05f, groundLayer))
             {
                 return false;
             }

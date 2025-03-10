@@ -13,18 +13,23 @@ public class JumpTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter");
-        
         if (other.CompareTag("Player"))
         {
             player = other.GetComponent<Player>();
             animator.SetTrigger(JumpTriggerHash);
         }
     }
-    
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            player = null;
+        }
+    }
+
     public void AnimEvent_Jump()
     {
         player.PlayerController.Jump(jumpPower);
-        player = null;
     }
 }
