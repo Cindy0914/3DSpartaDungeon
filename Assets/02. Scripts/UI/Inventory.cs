@@ -59,7 +59,10 @@ public class Inventory : MonoBehaviour
         if (existSlotDict.ContainsKey(itemData.ItemID))
         {
             if (!existSlotDict[itemData.ItemID].TryAddStack())
+            {
+                existSlotDict.Remove(itemData.ItemID);
                 FindNewSlot();
+            }
         }
         else
         {
@@ -81,8 +84,7 @@ public class Inventory : MonoBehaviour
 
             var player = MainSceneBase.Instance.Player;
             var pos = player.DropPoint.position;
-            var interactData = player.Interaction.CurrentInteractable.GetItemData();
-            Instantiate(interactData.ItemPrefab, pos, Quaternion.identity);
+            Instantiate(itemData.ItemPrefab, pos, Quaternion.identity);
         }
     }
 
@@ -101,11 +103,11 @@ public class Inventory : MonoBehaviour
             {
                 case ConsumableType.Health:
                     healthImage.SetActive(true);
-                    healthText.text = $"체력 {consumable.Value}";
+                    healthText.text = $"체력 {consumable.Value.ToString()}";
                     break;
                 case ConsumableType.Stamina:
                     staminaImage.SetActive(true);
-                    staminaText.text = $"기력 {consumable.Value}";
+                    staminaText.text = $"기력 {consumable.Value.ToString()}";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(consumable.Type), consumable.Type, null);
@@ -119,11 +121,11 @@ public class Inventory : MonoBehaviour
             {
                 case BuffType.SpeedUp:
                     speedImage.SetActive(true);
-                    speedText.text = $"속도 {buff.Value}";
+                    speedText.text = $"속도 {buff.Value.ToString()}";
                     break;
                 case BuffType.JumpUp:
                     jumpImage.SetActive(true);
-                    jumpText.text = $"점프력 {buff.Value / 10}";
+                    jumpText.text = $"점프력 {(buff.Value / 10).ToString()}";
                     break;
                 case BuffType.None:
                 default:

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
+    [SerializeField] private Camera uiCamera;
     [SerializeField] private ConditionPanel healthPanel;
     [SerializeField] private ConditionPanel staminaPanel;
     [SerializeField] private InteractionPanel interactionPanel;
@@ -22,7 +23,7 @@ public class UIManager : Singleton<UIManager>
     {
         healthPanel.Init(player.PlayerCondition.MaxHealth);
         staminaPanel.Init(player.PlayerCondition.MaxStamina);
-        interactionPanel.gameObject.SetActive(false);
+        interactionPanel.HideInteractionUi();
         inventory.Init();
         buffPanel.Init();
         
@@ -32,15 +33,19 @@ public class UIManager : Singleton<UIManager>
         OnBuffProgressChanged += buffPanel.UpdateBuffProgress;
     }
     
-    public void SetInteraction(string itemName, string desc)
+    public void ActiveInteractScreenUI(string itemName, string desc)
     {
-        interactionPanel.SetInteraction(itemName, desc);
-        interactionPanel.gameObject.SetActive(true);
+        interactionPanel.SetScreenUI(itemName, desc);
+    }
+    
+    public void ActiveInteractWorldUI(string desc, Vector3 position)
+    {
+        interactionPanel.SetWorldUI(desc, position);
     }
     
     public void InactiveInteraction()
     {
-        interactionPanel.gameObject.SetActive(false);
+        interactionPanel.HideInteractionUi();
     }
     
     public void OnInputInventory()

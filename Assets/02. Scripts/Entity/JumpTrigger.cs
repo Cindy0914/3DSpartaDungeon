@@ -15,6 +15,7 @@ public class JumpTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("JumpTrigger OnTriggerEnter");
             player = other.GetComponent<Player>();
             animator.SetTrigger(JumpTriggerHash);
         }
@@ -24,13 +25,16 @@ public class JumpTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("JumpTrigger OnTriggerExit");
             player = null;
         }
     }
 
     public void AnimEvent_Jump()
     {
-        if (player == null) return;
+        Debug.Log("JumpTrigger AnimEvent_Jump");
+        if (!player) return;
+        Debug.Log("JumpTrigger AnimEvent_Jump/Player");
         player.PlayerController.Jump(jumpPower);
     }
 }

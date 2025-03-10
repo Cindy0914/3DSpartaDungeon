@@ -12,13 +12,11 @@ public class Interaction : MonoBehaviour
     [SerializeField] private LayerMask layerMask;
     
     private GameObject currentInteractObj;
-    private Item currentInteractable;
+    private IInteractable currentInteractable;
     private Transform meshTr;
     private Collider[] hitColliders;
     private float lastCheckTime;
     
-    public Item CurrentInteractable => currentInteractable;
-
     public void Init(Transform meshTransform)
     {
         meshTr = meshTransform;
@@ -39,10 +37,16 @@ public class Interaction : MonoBehaviour
             if (hit.gameObject == currentInteractObj) return;
             
             currentInteractObj = hit.gameObject;
-            currentInteractable = currentInteractObj.GetComponent<Item>();
+            currentInteractable = currentInteractObj.GetComponent<IInteractable>();
             var itemName = currentInteractable.GetItemName();
             var itemDesc = currentInteractable.GetItemDesc();
-            UIManager.Instance.SetInteraction(itemName, itemDesc);
+            if (currentInteractable.GetUIType() == InteractionUIType.Screen)
+                UIManager.Instance.ActiveInteractScreenUI(itemName, itemDesc);
+            else
+            {
+                var uiPos = currentInteractable.GetPosition();
+                UIManager.Instance.ActiveInteractWorldUI(itemDesc, uiPos);
+            }
         }
         else
         {
@@ -56,12 +60,7 @@ public class Interaction : MonoBehaviour
     {
         if (context.phase != InputActionPhase.Started || currentInteractable == null) return;
 
-        // 오브젝트 파괴 및 인벤토리에 추가
-        Destroy(currentInteractObj);
-        var itemData = currentInteractable.GetItemData();
-        UIManager.Instance.OnItemAdded?.Invoke(itemData);
-        
-        // 상호작용 종료
+        currentInteractable.OnInteract();
         currentInteractObj = null;
         currentInteractable = null;
         UIManager.Instance.InactiveInteraction();

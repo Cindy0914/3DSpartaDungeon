@@ -1,23 +1,47 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public interface IInteractObject
+public class FruitsTree : MonoBehaviour, IInteractable
 {
-    public string GetInteractionInfo();
-    public void Interact();
-}
+    [Header("Interact Info")]
+    [SerializeField] private Vector3 uiOffset;
+    [SerializeField] private string treeName;
+    [SerializeField] private string treeDesc;
 
-public class FruitsTree : MonoBehaviour, IInteractObject
-{
-    private string interactionInfo;
-    
-    
-    public string GetInteractionInfo()
+    [Header("Tree Info")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private Rigidbody[] fruits;
+    private readonly string shakeTriggerHash = "Shake";
+
+    public InteractionUIType GetUIType()
     {
-        
+        return InteractionUIType.World;
     }
 
-    public void Interact()
+    public string GetItemName()
     {
+        return treeName;
+    }
+    public string GetItemDesc()
+    {
+        return treeDesc;
+    }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position + uiOffset;
+    }
+
+    public void OnInteract()
+    {
+        animator.SetTrigger(shakeTriggerHash);
+
+        for (int i = 0; i < fruits.Length; i++)
+        {
+            fruits[i].isKinematic = false;
+        }
         
+        gameObject.layer = LayerMask.NameToLayer("Default");
     }
 }

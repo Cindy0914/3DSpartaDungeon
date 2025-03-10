@@ -1,21 +1,29 @@
 using UnityEngine;
 
-public interface Item
+public interface IInteractable
 {
-    public ItemData GetItemData();
+    public InteractionUIType GetUIType(); 
     public string GetItemName();
     public string GetItemDesc();
+    public Vector3 GetPosition();
+    public void OnInteract();
 }
 
-public class ItemObject : MonoBehaviour, Item
+public enum InteractionUIType
+{
+    Screen,
+    World
+}
+
+public class ItemObject : MonoBehaviour, IInteractable
 {
     [SerializeField] private ItemData itemData;
-
-    public ItemData GetItemData()
-    {
-        return itemData;
-    }
     
+    public InteractionUIType GetUIType()
+    {
+        return InteractionUIType.Screen;
+    }
+
     public string GetItemName()
     {
         return itemData.ItemName;
@@ -24,5 +32,16 @@ public class ItemObject : MonoBehaviour, Item
     public string GetItemDesc()
     {
         return itemData.ItemDesc;
+    }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    public void OnInteract()
+    {
+        UIManager.Instance.OnItemAdded?.Invoke(itemData);
+        Destroy(gameObject);
     }
 }
