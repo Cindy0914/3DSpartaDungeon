@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8277988157531306704}
   - component: {fileID: 1182522184952578379}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 3680253929361026378}
   - component: {fileID: 40277862569923446}
   - component: {fileID: 1074025119053708876}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: JumpMushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5076522331575659150}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.957, y: 1.0002344, z: 11.684}
   m_LocalScale: {x: 5, y: 3, z: 5}
   m_ConstrainProportionsScale: 0

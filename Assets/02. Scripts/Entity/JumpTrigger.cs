@@ -30,6 +30,7 @@ public class JumpTrigger : MonoBehaviour
 
     public void AnimEvent_Jump()
     {
+        if (player == null) return;
         player.PlayerController.Jump(jumpPower);
     }
 }

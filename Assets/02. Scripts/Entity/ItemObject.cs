@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public interface IInteractable
+public interface Item
 {
     public ItemData GetItemData();
     public string GetItemName();
     public string GetItemDesc();
 }
 
-public class ItemObject : MonoBehaviour, IInteractable
+public class ItemObject : MonoBehaviour, Item
 {
     [SerializeField] private ItemData itemData;
 

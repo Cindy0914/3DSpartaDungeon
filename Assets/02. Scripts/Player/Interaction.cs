@@ -12,12 +12,12 @@ public class Interaction : MonoBehaviour
     [SerializeField] private LayerMask layerMask;
     
     private GameObject currentInteractObj;
-    private IInteractable currentInteractable;
+    private Item currentInteractable;
     private Transform meshTr;
     private Collider[] hitColliders;
     private float lastCheckTime;
     
-    public IInteractable CurrentInteractable => currentInteractable;
+    public Item CurrentInteractable => currentInteractable;
 
     public void Init(Transform meshTransform)
     {
@@ -39,7 +39,7 @@ public class Interaction : MonoBehaviour
             if (hit.gameObject == currentInteractObj) return;
             
             currentInteractObj = hit.gameObject;
-            currentInteractable = currentInteractObj.GetComponent<IInteractable>();
+            currentInteractable = currentInteractObj.GetComponent<Item>();
             var itemName = currentInteractable.GetItemName();
             var itemDesc = currentInteractable.GetItemDesc();
             UIManager.Instance.SetInteraction(itemName, itemDesc);
