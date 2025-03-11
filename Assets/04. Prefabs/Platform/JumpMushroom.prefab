@@ -51,8 +51,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.1819729, y: 0.15, z: 0.18111925}
-  m_Center: {x: 0.0014485046, y: 0.08, z: 0.0022741929}
+  m_Size: {x: 0.1819729, y: 0.1913605, z: 0.18111925}
+  m_Center: {x: 0.0014485061, y: 0.100661114, z: 0.0022741915}
 --- !u!1 &5076522331575659150
 GameObject:
   m_ObjectHideFlags: 0
@@ -67,6 +67,7 @@ GameObject:
   - component: {fileID: 3680253929361026378}
   - component: {fileID: 40277862569923446}
   - component: {fileID: 1074025119053708876}
+  - component: {fileID: -7860074160852275197}
   m_Layer: 7
   m_Name: JumpMushroom
   m_TagString: Untagged
@@ -196,3 +197,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3680253929361026378}
   jumpPower: 150
+--- !u!208 &-7860074160852275197
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5076522331575659150}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.025, y: 0.108, z: 0.025}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.001, y: 0.10700001, z: 0.002}
+  m_TimeToStationary: 0.5
