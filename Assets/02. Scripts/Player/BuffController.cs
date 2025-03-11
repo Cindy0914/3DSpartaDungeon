@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 플레이어의 버프를 관리하는 클래스
 public class BuffController : MonoBehaviour
 {
     private Player player;
-    private Dictionary<int, Coroutine> buffCoroutines;
-    private Dictionary<int, Action> finishActions;
+    private Dictionary<int, Coroutine> buffCoroutines; // 현재 적용중인 버프 코루틴
+    private Dictionary<int, Action> finishActions;     // 버프 종료시 실행할 액션
 
     public void Init()
     {
@@ -16,9 +17,11 @@ public class BuffController : MonoBehaviour
         finishActions = new Dictionary<int, Action>();
     }
 
+    // 버프 적용 실행
     public void ExecuteBuff(BuffData data)
     {
         var type = (int)data.Type;
+        // 이미 적용중인 같은 타입의 버프가 있다면 종료 액션 실행 후 코루틴 중지
         if (buffCoroutines.TryGetValue(type, out var coroutine))
         {
             StopCoroutine(coroutine);
@@ -27,10 +30,12 @@ public class BuffController : MonoBehaviour
             finishActions.Remove(type);
         }
 
+        // 새로운 버프 적용 코루틴 실행
         buffCoroutines.Add(type, StartCoroutine(ApplyBuff(data)));
         finishActions.Add(type, () => EndBuff(data));
     }
     
+    // 버프 효과 적용 코루틴
     private IEnumerator ApplyBuff(BuffData data)
     {
         BuffEffect(data);

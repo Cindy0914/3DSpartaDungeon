@@ -11,26 +11,22 @@ public class Inventory : MonoBehaviour
 
     [Header("Item Info")]
     [SerializeField] private TextMeshProUGUI nameText;
-
     [SerializeField] private TextMeshProUGUI descText;
 
     [Header("Consumable Info")]
     [SerializeField] private GameObject healthImage;
-
     [SerializeField] private GameObject staminaImage;
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI staminaText;
 
     [Header("Buff Info")]
     [SerializeField] private GameObject speedImage;
-
     [SerializeField] private GameObject jumpImage;
     [SerializeField] private TextMeshProUGUI speedText;
     [SerializeField] private TextMeshProUGUI jumpText;
 
     [Header("Button")]
     [SerializeField] private Button useButton;
-
     [SerializeField] private Button dropButton;
 
     private ItemSlot[] slots;
@@ -56,8 +52,10 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(ItemData itemData)
     {
+        // 아이템이 슬롯에 이미 존재하는 경우
         if (existSlotDict.ContainsKey(itemData.ItemID))
         {
+            // 스택이 가능하다면 스택을 추가
             if (!existSlotDict[itemData.ItemID].TryAddStack())
             {
                 existSlotDict.Remove(itemData.ItemID);
@@ -70,6 +68,7 @@ public class Inventory : MonoBehaviour
         }
         return;
         
+        // 새로운 슬롯을 찾는 함수
         void FindNewSlot()
         {
             for (int i = 0; i < slots.Length; i++)

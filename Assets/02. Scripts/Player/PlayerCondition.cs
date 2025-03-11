@@ -11,8 +11,7 @@ public class PlayerCondition : MonoBehaviour
     private float currentStamina;
     private bool isRunning;
     
-    public Action OnStaminaEmpty;
-
+    public Action OnStaminaEmpty; // 스태미나가 0이 됐을 때 실행 할 이벤트
     public float MaxHealth => maxHealth;
     public float MaxStamina => maxStamina;
 

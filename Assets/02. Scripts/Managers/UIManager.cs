@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
@@ -48,6 +46,7 @@ public class UIManager : Singleton<UIManager>
         interactionPanel.HideInteractionUi();
     }
     
+    // 인벤토리 키를 눌렀을 때 호출
     public void OnInputInventory()
     {
         if (IsInventoryActive)

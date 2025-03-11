@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,8 +25,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 lookInput;
     private float rotSmoothVelocity;
     
-    private bool canMove = false;
-    private bool isRunning = false;
+    private bool canMove;
+    private bool isRunning;
 
     public Transform CamContainer => camContainer;
     public Transform MeshTr => meshTr;
